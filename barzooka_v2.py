@@ -30,7 +30,7 @@ class Barzooka(object):
 
         pdf_table = self.__get_pdf_list(pdf_folder, iiif_mode)
         with open(save_filename, "w") as f:
-            f.write("approp,bar,pie,hist,bardot,box,dot,violin,paper_id\n")
+            f.write("approp,bar,pie,hist,bardot,box,dot,violin,flow,paper_id\n")
         for index, row in pdf_table.iterrows():
             paper_id = row['paper_id']
             print(paper_id)
@@ -115,6 +115,7 @@ class Barzooka(object):
             'box': 0,
             'dot': 0,
             'violin': 0,
+            'flow': 0,
             'paper_id': paper_id.replace("%2b", "/")
         }
         return classes_detected
@@ -124,7 +125,7 @@ class Barzooka(object):
         """
         page_predictions = [self.__predict_graph_type(images[idx])
                                      for idx in range(0, len(images))]
-        class_names = ['approp', 'bar', 'pie', 'hist', 'bardot', 'box', 'dot', 'violin']
+        class_names = ['approp', 'bar', 'pie', 'hist', 'bardot', 'box', 'dot', 'violin', 'flow']
         class_counts = [self.__count_class(class_name, page_predictions) for class_name in class_names]
         classes_detected = dict(zip(class_names, class_counts))
         if(pagewise):
@@ -143,11 +144,12 @@ class Barzooka(object):
             "2": ["bardot"],
             "3": ["box"],
             "4": ["dot"],
-            "5": ["hist"],
-            "6": ["other"],
-            "7": ["pie"],
-            "8": ["text"],
-            "9": ["violin"]
+            "5": ["flow"],
+            "6": ["hist"],
+            "7": ["other"],
+            "8": ["pie"],
+            "9": ["text"],
+            "10": ["violin"]
         }
         pred_class, pred_idx, outputs = self.learner.predict(img)
         if pred_idx.sum().tolist() == 0:
