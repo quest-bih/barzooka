@@ -23,27 +23,44 @@ def test_barzooka_screen_img_folder():
 
 def test_barzooka_screen_pdf():
     b = barzooka.Barzooka("barzooka/barzooka.pkl")
+
     screening_results = b.predict_from_file("barzooka/examples/pdf/text.pdf")
     assert screening_results == {'approp': 0,
                                  'bar': 0,
-                                 'pie': 0,
-                                 'hist': 0,
                                  'bardot': 0,
                                  'box': 0,
                                  'dot': 0,
-                                 'violin': 0,
-                                 'flowyes': 0,
                                  'flowno': 0,
+                                 'flowyes': 0,
+                                 'hist': 0,
+                                 'other': 0,
+                                 'pie': 0,
+                                 'text': 1,
+                                 'violin': 0,
                                  'paper_id': 'text'}
+
     screening_results = b.predict_from_file("barzooka/examples/pdf/doc.pdf")
     assert screening_results == {'approp': 0,
                                  'bar': 0,
-                                 'pie': 0,
-                                 'hist': 0,
                                  'bardot': 0,
                                  'box': 3,
                                  'dot': 4,
-                                 'violin': 1,
-                                 'flowyes': 0,
                                  'flowno': 0,
+                                 'flowyes': 0,
+                                 'hist': 0,
+                                 'other': 0,
+                                 'pie': 0,
+                                 'text': 1,
+                                 'violin': 1,
                                  'paper_id': 'doc'}
+
+    screening_results = b.predict_from_file("barzooka/examples/pdf/doc.pdf", pagewise = True)
+    assert screening_results == [['box'],
+                                 ['box', 'dot'],
+                                 ['box', 'dot'],
+                                 ['dot'],
+                                 ['dot'],
+                                 ['text'],
+                                 ['violin']]
+
+                                 

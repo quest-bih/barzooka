@@ -13,7 +13,18 @@ class Barzooka(object):
 
         super(Barzooka, self).__init__()
         self.learner = load_learner(model_file)
-        self.re_pg = re.compile(r'Index: \d+, Size: (\d+)')
+        self.class_names = ['approp', 
+                            'bar', 
+                            'bardot', 
+                            'box', 
+                            'dot', 
+                            'flowno', 
+                            'flowyes', 
+                            'hist', 
+                            'other', 
+                            'pie', 
+                            'text', 
+                            'violin']
 
     def predict_from_folder(self, pdf_folder, save_filename,
                             tmp_folder='./tmp/'):
@@ -24,11 +35,11 @@ class Barzooka(object):
             os.mkdir(tmp_folder)
 
         pdf_table = self.__get_pdf_list(pdf_folder)
+        colnames = ",".join(self.class_names) + ",paper_id\n"
         with open(save_filename, "w") as f:
-            f.write("approp,bar,pie,hist,bardot,box,dot,violin,flowyes,flowno,paper_id\n")
+            f.write(colnames)
         for index, row in pdf_table.iterrows():
             paper_id = row['paper_id']
-            print(paper_id)
             try:
                 barzooka_result = self.predict_from_file(paper_id, tmp_folder)
             except:
@@ -39,7 +50,6 @@ class Barzooka(object):
 
     def predict_from_file(self, pdf_file, tmp_folder='./tmp/', pagewise=False):
         """Barzooka prediction for publication pdf files"""
-        # convert pdf to images
         if(tmp_folder == ''):
             raise ValueError("tmp folder argument missing")
         if not os.path.exists(tmp_folder):
@@ -86,6 +96,10 @@ class Barzooka(object):
         return pdf_table
 
     def __convert_pdf(self, pdf_file, tmp_folder):
+        """Converts PDF file to images for all pages and saves them
+           in the tmp folder. Requires the poppler library on
+           the system.
+        """
         image_filename = pdf_file.split('/')[-1][:-4]
         os.system('pdftocairo -jpeg -scale-to-x 560 -scale-to-y 560 "'
                   + pdf_file + '" "' + tmp_folder + image_filename + '"')
@@ -97,9 +111,8 @@ class Barzooka(object):
             images = [images]
         page_predictions = [self.__predict_graph_type(images[idx])
                                      for idx in range(0, len(images))]
-        class_names = ['approp', 'bar', 'pie', 'hist', 'bardot', 'box', 'dot', 'violin', 'flowyes','flowno']
-        class_counts = [self.__count_class(class_name, page_predictions) for class_name in class_names]
-        classes_detected = dict(zip(class_names, class_counts))
+        class_counts = [self.__count_class(class_name, page_predictions) for class_name in self.class_names]
+        classes_detected = dict(zip(self.class_names, class_counts))
         if(pagewise):
             return page_predictions
         return classes_detected
@@ -110,26 +123,14 @@ class Barzooka(object):
     def __predict_graph_type(self, img):
         """Use fastai model on each image to predict types of pages
         """
-        class_names = {
-            "0": ["approp"],
-            "1": ["bar"],
-            "2": ["bardot"],
-            "3": ["box"],
-            "4": ["dot"],
-            "5": ["flowno"],
-            "6": ["flowyes"],
-            "7": ["hist"],
-            "8": ["other"],
-            "9": ["pie"],
-            "10": ["text"],
-            "11": ["violin"]
-        }
+        class_names_dict = dict(zip(map(str, range(12)), 
+                                    [[category] for category in self.class_names]))
         pred_class, pred_idx, outputs = self.learner.predict(img)
         if pred_idx.sum().tolist() == 0:
             # if there is no predicted class (=no class over threshold)
             # give out class with highest prediction probability
             highest_pred = str(np.argmax(outputs).tolist())
-            pred_class = class_names[highest_pred]
+            pred_class = class_names_dict[highest_pred]
         else:
             pred_class = pred_class.items  # extract class name as text
         return(pred_class)
