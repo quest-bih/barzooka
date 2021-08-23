@@ -1,11 +1,5 @@
 import os
-import glob
-import requests
 from fastai.vision.all import *
-import urllib3
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-os.environ['NO_PROXY'] = '127.0.0.1'
 
 
 class Barzooka(object):
