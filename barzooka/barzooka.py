@@ -3,7 +3,41 @@ from fastai.vision.all import *
 
 
 class Barzooka(object):
+    """
+    This class offers an interface to the trained
+    Barzooka model which handles PDF and image folders/file lists
+    as input and gathering the prediction outputs.
+
+    Attrubutes
+    ----------
+    model_file: str
+        trained model file in pkl format
+
+    Methods
+    -------
+    predict_from_folder(pdf_folder, save_filename, tmp_folder='./tmp/')
+        Takes the path of a folder with pdfs and converts each pdf to
+        page images using the poppler library and saves them in tmp_folder
+        Predictions per pdf are aggregated for all pages. Results per 
+        paper are saved in the csv file named save_filename.
+    predict_from_file(pdf_file, tmp_folder='./tmp/', pagewise=False)
+        Returns the prediction for a single PDF file either 
+        aggregated in dict format or on the page level (if pagewise=True).
+    predict_from_img_folder(img_folder)
+        Calculates predictions for all images in img_folder and returns
+        a result list.
+    predict_from_img(img_files)
+        Takes a list of image file path and calculates predictions
+        for all images in the list. Returns a result list.
+    """
+
     def __init__(self, model_file='barzooka.pkl'):
+        """
+        Parameters
+        ----------
+        model_file : str
+            trained model file in pkl format
+        """
 
         super(Barzooka, self).__init__()
         self.learner = load_learner(model_file)
@@ -22,7 +56,28 @@ class Barzooka(object):
 
     def predict_from_folder(self, pdf_folder, save_filename,
                             tmp_folder='./tmp/'):
-        """Barzooka prediction for folder of publication pdf files"""
+        """Barzooka prediction for folder of publication pdf files
+        Takes the path of a folder with pdfs and converts each pdf to
+        page images using the poppler library and saves them in tmp_folder
+        Predictions per pdf are aggregated for all pages. Results per 
+        paper are saved in the csv file named save_filename. After each
+        screened PDF the results are written to the csv file such that
+        no results get lost in a long run.
+
+        Requires pre-installed poppler library to use the pdftocairo
+        conversion function.
+
+        Parameters
+        ----------
+        pdf_folder : str
+            Folder path for PDF folder.
+        save_filename : str
+            Filename of csv file in which results get written.
+        tmp_folder : str
+            Folder used to temporarily extract page images from 
+            PDF files. Folder is created if not yet existing.
+        """
+
         if(tmp_folder == ''):
             raise ValueError("tmp folder argument missing")
         if not os.path.exists(tmp_folder):
@@ -43,7 +98,23 @@ class Barzooka(object):
             result_row.to_csv(save_filename, mode='a', header=False, index=False)
 
     def predict_from_file(self, pdf_file, tmp_folder='./tmp/', pagewise=False):
-        """Barzooka prediction for publication pdf files"""
+        """Barzooka prediction for publication pdf files
+        Returns the prediction for a single PDF file either 
+        aggregated in dict format or on the page level (if pagewise=True).
+
+        Parameters
+        ----------
+        pdf_file : str
+            PDF filename that should get screened.
+        tmp_folder : str
+            Folder used to temporarily extract page images from 
+            PDF files. Folder is created if not yet existing.
+        pagewise : boolean
+            Should the results for each page be given (True)
+            or should the results be aggregated for the entire
+            PDF (False)?
+        """
+
         if(tmp_folder == ''):
             raise ValueError("tmp folder argument missing")
         if not os.path.exists(tmp_folder):
@@ -65,12 +136,30 @@ class Barzooka(object):
         return classes_detected
 
     def predict_from_img(self, img_files):
-        """Barzooka prediction for list of image files"""
+        """Barzooka prediction for list of image files
+        Takes a list of image file path and calculates predictions
+        for all images in the list. Returns a result list.
+
+        Parameters
+        ----------
+        img_files : list
+            List of image file path that should get screened.
+        """
+
         classes_detected = self.__predict_img_list(img_files, pagewise = True)
         return classes_detected
         
     def predict_from_img_folder(self, img_folder):
-        """Barzooka prediction for folder of image files"""
+        """Barzooka prediction for folder of image files
+        Calculates predictions for all images in img_folder and returns
+        a result list.
+
+        Parameters
+        ----------
+        img_folder : str
+            Folder path for image folder.
+        """
+
         images = get_image_files(img_folder)
 
         # predict on images
