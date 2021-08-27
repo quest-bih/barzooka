@@ -1,0 +1,351 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Welcome to Barzooka’s documentation! &mdash; Barzooka  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> Barzooka
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to Barzooka’s documentation!</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Barzooka</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Welcome to Barzooka’s documentation!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-barzooka-s-documentation">
+<h1>Welcome to Barzooka’s documentation!<a class="headerlink" href="#welcome-to-barzooka-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p><strong>Barzooka</strong> is a deep convolutional neural network trained to detect
+different graph types in publication PDFs.</p>
+<span class="target" id="module-barzooka.barzooka"></span><dl class="py class">
+<dt id="barzooka.barzooka.Barzooka">
+<em class="property">class </em><code class="sig-prename descclassname">barzooka.barzooka.</code><code class="sig-name descname">Barzooka</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model_file</span><span class="o">=</span><span class="default_value">'barzooka.pkl'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#barzooka.barzooka.Barzooka" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class offers an interface to the trained
+Barzooka model which handles PDF and image folders/file lists
+as input and gathering the prediction outputs.</p>
+<dl class="simple">
+<dt>model_file: str</dt><dd><p>trained model file in pkl format</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>predict_from_folder(pdf_folder, save_filename, tmp_folder=’./tmp/’)</dt><dd><p>Takes the path of a folder with pdfs and converts each pdf to
+page images using the poppler library and saves them in tmp_folder
+Predictions per pdf are aggregated for all pages. Results per 
+paper are saved in the csv file named save_filename.</p>
+</dd>
+<dt>predict_from_file(pdf_file, tmp_folder=’./tmp/’, pagewise=False)</dt><dd><p>Returns the prediction for a single PDF file either 
+aggregated in dict format or on the page level (if pagewise=True).</p>
+</dd>
+<dt>predict_from_img_folder(img_folder)</dt><dd><p>Calculates predictions for all images in img_folder and returns
+a result list.</p>
+</dd>
+<dt>predict_from_img(img_files)</dt><dd><p>Takes a list of image file path and calculates predictions
+for all images in the list. Returns a result list.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="barzooka.barzooka.Barzooka.predict_from_file">
+<code class="sig-name descname">predict_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pdf_file</span></em>, <em class="sig-param"><span class="n">tmp_folder</span><span class="o">=</span><span class="default_value">'./tmp/'</span></em>, <em class="sig-param"><span class="n">pagewise</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#barzooka.barzooka.Barzooka.predict_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Barzooka prediction for publication pdf files
+Returns the prediction for a single PDF file either 
+aggregated in dict format or on the page level (if pagewise=True).</p>
+<dl class="simple">
+<dt>pdf_file<span class="classifier">str</span></dt><dd><p>PDF filename that should get screened.</p>
+</dd>
+<dt>tmp_folder<span class="classifier">str</span></dt><dd><p>Folder used to temporarily extract page images from 
+PDF files. Folder is created if not yet existing.</p>
+</dd>
+<dt>pagewise<span class="classifier">boolean</span></dt><dd><p>Should the results for each page be given (True)
+or should the results be aggregated for the entire
+PDF (False)?</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="barzooka.barzooka.Barzooka.predict_from_folder">
+<code class="sig-name descname">predict_from_folder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pdf_folder</span></em>, <em class="sig-param"><span class="n">save_filename</span></em>, <em class="sig-param"><span class="n">tmp_folder</span><span class="o">=</span><span class="default_value">'./tmp/'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#barzooka.barzooka.Barzooka.predict_from_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Barzooka prediction for folder of publication pdf files
+Takes the path of a folder with pdfs and converts each pdf to
+page images using the poppler library and saves them in tmp_folder
+Predictions per pdf are aggregated for all pages. Results per 
+paper are saved in the csv file named save_filename. After each
+screened PDF the results are written to the csv file such that
+no results get lost in a long run.</p>
+<p>Requires pre-installed poppler library to use the pdftocairo
+conversion function.</p>
+<dl class="simple">
+<dt>pdf_folder<span class="classifier">str</span></dt><dd><p>Folder path for PDF folder.</p>
+</dd>
+<dt>save_filename<span class="classifier">str</span></dt><dd><p>Filename of csv file in which results get written.</p>
+</dd>
+<dt>tmp_folder<span class="classifier">str</span></dt><dd><p>Folder used to temporarily extract page images from 
+PDF files. Folder is created if not yet existing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="barzooka.barzooka.Barzooka.predict_from_img">
+<code class="sig-name descname">predict_from_img</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_files</span></em><span class="sig-paren">)</span><a class="headerlink" href="#barzooka.barzooka.Barzooka.predict_from_img" title="Permalink to this definition">¶</a></dt>
+<dd><p>Barzooka prediction for list of image files
+Takes a list of image file path and calculates predictions
+for all images in the list. Returns a result list.</p>
+<dl class="simple">
+<dt>img_files<span class="classifier">list</span></dt><dd><p>List of image file path that should get screened.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="barzooka.barzooka.Barzooka.predict_from_img_folder">
+<code class="sig-name descname">predict_from_img_folder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_folder</span></em><span class="sig-paren">)</span><a class="headerlink" href="#barzooka.barzooka.Barzooka.predict_from_img_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Barzooka prediction for folder of image files
+Calculates predictions for all images in img_folder and returns
+a result list.</p>
+<dl class="simple">
+<dt>img_folder<span class="classifier">str</span></dt><dd><p>Folder path for image folder.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="barzooka.barzooka.as_tensor">
+<code class="sig-prename descclassname">barzooka.barzooka.</code><code class="sig-name descname">as_tensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">dtype</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#barzooka.barzooka.as_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the data into a <cite>torch.Tensor</cite>. If the data is already a <cite>Tensor</cite> with the same <cite>dtype</cite> and <cite>device</cite>,
+no copy will be performed, otherwise a new <cite>Tensor</cite> will be returned with computational graph retained if data
+<cite>Tensor</cite> has <code class="docutils literal notranslate"><span class="pre">requires_grad=True</span></code>. Similarly, if the data is an <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> of the corresponding <cite>dtype</cite> and
+the <cite>device</cite> is the cpu, no copy will be performed.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>data (array_like): Initial data for the tensor. Can be a list, tuple,</dt><dd><p>NumPy <code class="docutils literal notranslate"><span class="pre">ndarray</span></code>, scalar, and other types.</p>
+</dd>
+<dt>dtype (<code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code>, optional): the desired data type of returned tensor.</dt><dd><p>Default: if <code class="docutils literal notranslate"><span class="pre">None</span></code>, infers data type from <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code>.</p>
+</dd>
+<dt>device (<code class="xref py py-class docutils literal notranslate"><span class="pre">torch.device</span></code>, optional): the desired device of returned tensor.</dt><dd><p>Default: if <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses the current device for the default tensor type
+(see <code class="xref py py-func docutils literal notranslate"><span class="pre">torch.set_default_tensor_type()</span></code>). <code class="xref py py-attr docutils literal notranslate"><span class="pre">device</span></code> will be the CPU
+for CPU tensor types and the current CUDA device for CUDA tensor types.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
+<span class="go">tensor([ 1,  2,  3])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([-1,  2,  3])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
+<span class="go">tensor([ 1,  2,  3])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([1,  2,  3])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Nico Riedel.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
