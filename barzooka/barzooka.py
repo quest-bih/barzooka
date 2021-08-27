@@ -1,5 +1,5 @@
 import os
-from fastai.vision.all import *
+import fastai
 
 
 class Barzooka(object):
@@ -29,6 +29,7 @@ class Barzooka(object):
     predict_from_img(img_files)
         Takes a list of image file path and calculates predictions
         for all images in the list. Returns a result list.
+
     """
 
     def __init__(self, model_file='barzooka.pkl'):
@@ -40,7 +41,7 @@ class Barzooka(object):
         """
 
         super(Barzooka, self).__init__()
-        self.learner = load_learner(model_file)
+        self.learner = fastai.learner.load_learner(model_file)
         self.class_names = ['approp', 
                             'bar', 
                             'bardot', 
@@ -56,7 +57,8 @@ class Barzooka(object):
 
     def predict_from_folder(self, pdf_folder, save_filename,
                             tmp_folder='./tmp/'):
-        """Barzooka prediction for folder of publication pdf files
+        """
+        Barzooka prediction for folder of publication pdf files
         Takes the path of a folder with pdfs and converts each pdf to
         page images using the poppler library and saves them in tmp_folder
         Predictions per pdf are aggregated for all pages. Results per 
@@ -76,6 +78,7 @@ class Barzooka(object):
         tmp_folder : str
             Folder used to temporarily extract page images from 
             PDF files. Folder is created if not yet existing.
+
         """
 
         if(tmp_folder == ''):
@@ -98,7 +101,8 @@ class Barzooka(object):
             result_row.to_csv(save_filename, mode='a', header=False, index=False)
 
     def predict_from_file(self, pdf_file, tmp_folder='./tmp/', pagewise=False):
-        """Barzooka prediction for publication pdf files
+        """
+        Barzooka prediction for publication pdf files
         Returns the prediction for a single PDF file either 
         aggregated in dict format or on the page level (if pagewise=True).
 
@@ -113,6 +117,24 @@ class Barzooka(object):
             Should the results for each page be given (True)
             or should the results be aggregated for the entire
             PDF (False)?
+
+        Examples
+        --------
+        >>> b.predict_from_file("barzooka/examples/pdf/doc.pdf")
+        {'approp': 0,
+         'bar': 0,
+         'bardot': 0,
+         'box': 3,
+         'dot': 4,
+         'flowno': 0,
+         'flowyes': 0,
+         'hist': 0,
+         'other': 0,
+         'pie': 0,
+         'text': 1,
+         'violin': 1,
+         'paper_id': 'doc'}
+
         """
 
         if(tmp_folder == ''):
@@ -136,21 +158,29 @@ class Barzooka(object):
         return classes_detected
 
     def predict_from_img(self, img_files):
-        """Barzooka prediction for list of image files
+        """
+        Barzooka prediction for list of image files
         Takes a list of image file path and calculates predictions
         for all images in the list. Returns a result list.
-
+        
         Parameters
         ----------
         img_files : list
             List of image file path that should get screened.
+        
+        Examples
+        --------
+        >>> b.predict_from_img("barzooka/examples/img/dot1.jpg") 
+        [['dot']]
+        
         """
 
         classes_detected = self.__predict_img_list(img_files, pagewise = True)
         return classes_detected
         
     def predict_from_img_folder(self, img_folder):
-        """Barzooka prediction for folder of image files
+        """
+        Barzooka prediction for folder of image files
         Calculates predictions for all images in img_folder and returns
         a result list.
 
@@ -158,6 +188,12 @@ class Barzooka(object):
         ----------
         img_folder : str
             Folder path for image folder.
+
+        Examples
+        --------
+        >>> b.predict_from_img_folder("barzooka/examples/img")[1]
+        [['box'], ['box', 'dot'], ['box', 'dot'], ['dot'], ['dot'], ['text'], ['violin']]
+
         """
 
         images = get_image_files(img_folder)
