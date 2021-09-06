@@ -3,6 +3,7 @@ import fastai.learner
 import fastai.data.transforms
 import numpy as np
 import pandas as pd
+from importlib_resources import files
 
 
 class Barzooka(object):
@@ -35,7 +36,7 @@ class Barzooka(object):
 
     """
 
-    def __init__(self, model_file='barzooka.pkl'):
+    def __init__(self, model_file = files('barzooka').joinpath('barzooka.pkl')):
         """
         Parameters
         ----------

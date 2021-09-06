@@ -14,5 +14,6 @@ setup(
       "numpy",
       "pandas",
       "pytest",
+      "importlib_resources",
   ],
 )
