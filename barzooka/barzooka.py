@@ -1,5 +1,8 @@
 import os
-import fastai
+import fastai.learner
+import fastai.data.transforms
+import numpy as np
+import pandas as pd
 
 
 class Barzooka(object):
@@ -144,7 +147,7 @@ class Barzooka(object):
 
         self.__convert_pdf(pdf_file, tmp_folder)
      	
-        images = get_image_files(tmp_folder)
+        images = fastai.data.transforms.get_image_files(tmp_folder)
 
         classes_detected = self.__predict_img_list(images, pagewise)
         doi = pdf_file.split('/')[-1].replace("+", "/").replace(".pdf", "")
@@ -196,7 +199,7 @@ class Barzooka(object):
 
         """
 
-        images = get_image_files(img_folder)
+        images = fastai.data.transforms.get_image_files(img_folder)
 
         # predict on images
         classes_detected = self.__predict_img_list(images, pagewise = True)
