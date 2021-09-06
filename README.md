@@ -37,7 +37,7 @@ Barzooka consist of a model file (.pkl) that stores the trained network paramete
 Create Barzooka object and load model file:
 ``` python
 import barzooka
-b = barzooka.barzooka.Barzooka('./barzooka/barzooka.pkl')
+b = barzooka.Barzooka('./barzooka/barzooka.pkl')
 ```
 
 
