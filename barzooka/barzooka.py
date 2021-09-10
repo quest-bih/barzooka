@@ -100,6 +100,10 @@ class Barzooka(object):
                 barzooka_result = self.predict_from_file(paper_id, tmp_folder)
             except:
                 print("Could not screen pdf " + paper_id)
+                # remove remaining temporary images in case they did not get deleted
+                images = fastai.data.transforms.get_image_files(tmp_folder)
+                for j in range(0, len(images)):
+                    os.remove(images[j])
 
             result_row = pd.DataFrame([barzooka_result])
             result_row.to_csv(save_filename, mode='a', header=False, index=False)
