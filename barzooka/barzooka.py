@@ -162,8 +162,12 @@ class Barzooka(object):
         # remove images again
         for j in range(0, len(images)):
             os.remove(images[j])
-
-        return classes_detected
+            
+        if pagewise:
+            return [images, classes_detected]
+        else: 
+            return classes_detected
+        
 
     def predict_from_img(self, img_files):
         """
