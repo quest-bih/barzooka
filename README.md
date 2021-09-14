@@ -25,6 +25,11 @@ conda create -n env_name python 3.9
 conda activate env_name
 ```
 
+If not pre-installed, install the poppler library that is used to convert the PDF files to images for screening
+```
+conda install poppler
+```
+
 Then run the following command from the package folder
 ``` python
 python setup.py install
