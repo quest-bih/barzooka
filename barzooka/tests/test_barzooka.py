@@ -2,11 +2,11 @@ import pytest
 import os
 from .. import barzooka
 
-b = barzooka.Barzooka()
-    
 import pathlib
 if os.name == 'nt':
     pathlib.PosixPath = pathlib.WindowsPath
+
+b = barzooka.Barzooka()
 
 def test_barzooka_screen_img():
     assert b.predict_from_img("barzooka/examples/img/text1.jpg") == [['text']]
