@@ -93,7 +93,7 @@ class Barzooka(object):
         pdf_table = self.__get_pdf_list(pdf_folder)
         colnames = ",".join(self.class_names) + ",paper_id\n"
         #do not overwrite results file & add column labels in append mode
-        if(!append): 
+        if(not append or not os.path.exists(save_filename)): 
             with open(save_filename, "w") as f:
                 f.write(colnames)
         for index, row in pdf_table.iterrows():
