@@ -60,7 +60,7 @@ class Barzooka(object):
                             'violin']
 
     def predict_from_folder(self, pdf_folder, save_filename,
-                            tmp_folder='./tmp/'):
+                            tmp_folder='./tmp/', append = False):
         """
         Barzooka prediction for folder of publication pdf files
         Takes the path of a folder with pdfs and converts each pdf to
@@ -92,8 +92,10 @@ class Barzooka(object):
 
         pdf_table = self.__get_pdf_list(pdf_folder)
         colnames = ",".join(self.class_names) + ",paper_id\n"
-        with open(save_filename, "w") as f:
-            f.write(colnames)
+        #do not overwrite results file & add column labels in append mode
+        if(!append): 
+            with open(save_filename, "w") as f:
+                f.write(colnames)
         for index, row in pdf_table.iterrows():
             paper_id = row['paper_id']
             try:
