@@ -116,7 +116,7 @@ Performance internal validation dataset:
 
 | Class | Manually labeled cases | False positives | precision | recall | F1 score |
 |-------|-------|-------|-------|-------|-------|
-| Bar graph of counts or proportions (appropriate) | 407 65 | 0.84 | 0.86 | 0.85 |
+| Bar graph of counts or proportions (appropriate) | 407 | 65 | 0.84 | 0.86 | 0.85 |
 | Bar graph of continuous data (inappropriate) | 671 | 35 | 0.95 | 0.91 | 0.93 |
 | Bar graph with dot plot | 149 | 10 | 0.93 | 0.91 | 0.92 |
 | Dot plot | 393 | 33 | 0.91 | 0.85 | 0.88 |
