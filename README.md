@@ -110,4 +110,40 @@ pathlib.PosixPath = pathlib.WindowsPath
 
 ## Performance
 
-...
+The algorithm was trained on a set of 37,784 pages derived from a set of biomedical open access publication from PubMed Central and eLife. The number of examples per class range from 837 (flowno) to 8615 (other). For internal validation, a set of 3812 pages gathered from the same sources that were not used for training were used. Additional, two separate validation datasets with 1107 bioRxiv preprints and 1000 publications of authors affiliated with Charité Universitätsmedizin – Berlin (only for flow & pie charts) were used.
+
+Performance internal validation dataset:
+
+| Class | Manually labeled cases | False positives | precision | recall | F1 score |
+|-------|-------|-------|-------|-------|-------|
+| Bar graph of counts or proportions (appropriate) | 407 65 | 0.84 | 0.86 | 0.85 |
+| Bar graph of continuous data (inappropriate) | 671 | 35 | 0.95 | 0.91 | 0.93 |
+| Bar graph with dot plot | 149 | 10 | 0.93 | 0.91 | 0.92 |
+| Dot plot | 393 | 33 | 0.91 | 0.85 | 0.88 |
+| Box plot | 368 | 29 | 0.92 | 0.88 | 0.90 |
+| Violin plot | 340 | 13 | 0.96 | 0.96 | 0.95 |
+| Histogram | 238 | 32 | 0.86 | 0.86 | 0.83 |
+| Flow chart | 276 | 32 | 0.89 | 0.91 | 0.90 |
+| Pie chart | 160 | 5 | 0.97 | 0.92 | 0.94 |
+
+Performance bioRxiv validation dataset:
+
+| Class | Manually labeled cases | False positives | precision | recall | F1 score |
+|-------|-------|-------|-------|-------|-------|
+| Bar graph of counts or proportions (appropriate) | 345 | 60 | 0.82 | 0.81 | 0.82 |
+| Bar graph of continuous data (inappropriate) | 405 | 25 | 0.94 | 0.92 | 0.93 |
+| Bar graph with dot plot | 74 | 37 | 0.63 | 0.86 | 0.73 |
+| Dot plot | 257 | 51 | 0.80 | 0.80 | 0.80 |
+| Box plot | 255 | 36 | 0.87 | 0.91 | 0.89 |
+| Violin plot | 57 | 27 | 0.65 | 0.89 | 0.76 |
+| Histogram | 198 | 66 | 0.72 | 0.85 | 0.78 |
+| Flow chart | 20 | 26 | 0.40 | 0.85 | 0.54 |
+| Pie chart | 71 | 12 | 0.83 | 0.85 | 0.84 |
+
+Performance Charité validation dataset:
+
+| Class | Manually labeled cases | False positives | precision | recall | F1 score |
+|-------|-------|-------|-------|-------|-------|
+| Flow chart | 123 | 20 | 0.84 | 0.87 | 0.86 |
+| Pie chart | 38 | 4 | 0.89 | 0.87 | 0.88 |
+
