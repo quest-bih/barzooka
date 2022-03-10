@@ -19,7 +19,7 @@ Barzooka is based on a deep convolutional network trained using the fastai pytho
 
 ## Authors
 
-Nico Riedel, Robert Schulz, Vartan Kazezian, Tracey Weissgerber - 
+Nico Riedel (nico.riedel@bih-charite.de), Robert Schulz, Vartan Kazezian, Tracey Weissgerber - 
 QUEST Center for Responsible Research, Berlin Institute of Health (BIH) at Charité – Universitätsmedizin Berlin, Berlin, Germany
 
 ## Installation
