@@ -1,10 +1,10 @@
 # Barzooka
 
-Barzooka screens publication and detects different graph types. The following graph types can be detected:
+Barzooka screens publications and detects different graph types. The following graph types can be detected:
 
-- bar graphs for continuous data
-- bar graphs for count data
-- bar graphs with dots
+- bar graphs of continuous data
+- bar graphs of counts or proportions
+- bar graphs with dot plots
 - pie charts
 - dot plots
 - box plots
@@ -16,6 +16,11 @@ Barzooka screens publication and detects different graph types. The following gr
 ## Description
 
 Barzooka is based on a deep convolutional network trained using the fastai python package (https://docs.fast.ai/). It screens a publication on the page level and can detect multiple graph types per page.
+
+## Authors
+
+Nico Riedel, Robert Schulz, Vartan Kazezian, Tracey Weissgerber - 
+QUEST Center for Responsible Research, Berlin Institute of Health (BIH) at Charité – Universitätsmedizin Berlin, Berlin, Germany
 
 ## Installation
 
@@ -79,9 +84,9 @@ The result files use the following encoding for the different classes:
 
 | class label | description |
 |-------------|-------------|
-| approp | Bar graph for count data |
-| bar | Bar graph for continuous data |
-| bardot | Bar graph with dots |
+| approp | Bar graphs of continuous data |
+| bar | Bar graphs of counts or proportions |
+| bardot | Bar graphs with dot plots |
 | box | Box plot |
 | dot | Dot plot |
 | flowno | Flow chart without numbers |
