@@ -84,8 +84,8 @@ The result files use the following encoding for the different classes:
 
 | class label | description |
 |-------------|-------------|
-| approp | Bar graphs of continuous data |
-| bar | Bar graphs of counts or proportions |
+| approp | Bar graphs of counts or proportions |
+| bar | Bar graphs of continuous data |
 | bardot | Bar graphs with dot plots |
 | box | Box plot |
 | dot | Dot plot |
