@@ -37,7 +37,7 @@ conda install poppler
 
 Then run the following command from the package folder
 ``` python
-python setup.py install
+pip install .
 ```
 
 ## Usage
