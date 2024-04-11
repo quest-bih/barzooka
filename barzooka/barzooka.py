@@ -36,7 +36,7 @@ class Barzooka(object):
 
     """
 
-    def __init__(self, model_file = files('barzooka').joinpath('barzooka.pkl')):
+    def __init__(self, model_file = files('barzooka').joinpath('barzooka.pkl'),cpu=False):
         """
         Parameters
         ----------
@@ -45,7 +45,7 @@ class Barzooka(object):
         """
 
         super(Barzooka, self).__init__()
-        self.learner = fastai.learner.load_learner(model_file)
+        self.learner = fastai.learner.load_learner(model_file,cpu)
         self.class_names = ['approp', 
                             'bar', 
                             'bardot', 
