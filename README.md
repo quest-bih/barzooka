@@ -26,7 +26,7 @@ QUEST Center for Responsible Research, Berlin Institute of Health (BIH) at Chari
 
 It is recommended to set up a separate environment first, e.g. using conda: 
 ```
-conda create -n env_name python=3.9
+conda create -n env_name python=3.10
 conda activate env_name
 ```
 
